@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Web</string>
+    <string name="peliculas">Peliculas</string>
+    <string name="login">Login</string>
+    <string name="credenciales">Por favor ingrese sus credenciales para iniciar sesión</string>
+    <string name="correo_electronico">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="boton_login">Login</string>
+    <string name="boton_registrar">Registrarse</string>
+    <string name="title_registro_activity">Registro</string>
+    <string name="hint_nombre_usuario">Nombre de Usuario</string>
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_apellidos">Apellidos</string>
+    <string name="hint_correo">Correo Electrónico</string>
+    <string name="hint_contrasena">Contraseña</string>
+    <string name="boton_registrarse">Registrarse</string>
+    <string name="registrarse">Por favor complete todos los campos</string>
+    <string name="registronuevo">Ingrese sus datos personales</string>
+    <string name="boton_ir_a_login">Ir a Iniciar Sesión</string>
+
+</resources>
