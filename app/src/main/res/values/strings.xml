@@ -3,7 +3,7 @@
     <string name="peliculas">Peliculas</string>
     <string name="login">Login</string>
     <string name="credenciales">Por favor ingrese sus credenciales para iniciar sesión</string>
-    <string name="correo_electronico">Correo Electrónico</string>
+    <string name="User_Name">Usuario</string>
     <string name="password">Contraseña</string>
     <string name="boton_login">Login</string>
     <string name="boton_registrar">Registrarse</string>
@@ -17,5 +17,6 @@
     <string name="registrarse">Por favor complete todos los campos</string>
     <string name="registronuevo">Ingrese sus datos personales</string>
     <string name="boton_ir_a_login">Ir a Iniciar Sesión</string>
+    <string name="title_test_activity">Test</string>
 
 </resources>

@@ -1,5 +1,5 @@
 package com.example.web;
-
+import com.google.android.material.snackbar.Snackbar;
 import android.content.Intent;  // Importa la clase Intent
 import android.os.Bundle;
 import android.view.View;
@@ -9,16 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.web.model.ApiResponse;
 import com.example.web.model.ApiService;
 import com.example.web.model.ApiClient;
-import com.example.web.model.usuario;
+import com.example.web.model.Usuario;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
     private ApiService apiService;
-    private EditText editTextCorreo;  // Cambiado para reflejar el EditText de correo electrónico
-    private EditText editTextPassword; // Cambiado para reflejar el EditText de contraseña
+    private EditText editTextCorreo;
+    private EditText editTextPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,45 +27,52 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         apiService = ApiClient.getURL().create(ApiService.class);
-        editTextCorreo = findViewById(R.id.editTextCorreo); // Refleja el ID correcto
-        editTextPassword = findViewById(R.id.editTextPassword); // Refleja el ID correcto
+        editTextCorreo = findViewById(R.id.editTextCorreo);
+        editTextPassword = findViewById(R.id.editTextPassword);
 
         Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Obtener los datos de usuario y contraseña de tus EditText
                 String correo = editTextCorreo.getText().toString();
                 String password = editTextPassword.getText().toString();
 
-                usuario user = new usuario(correo, password);
+                Usuario user = new Usuario(correo, password);
 
-                Call<ApiResponse> call = apiService.validarlogin(correo, password);
+                Call<ApiResponse> call = apiService.validarlogin(user);
 
                 call.enqueue(new Callback<ApiResponse>() {
                     @Override
                     public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                         if (response.isSuccessful()) {
                             ApiResponse apiResponse = response.body();
-                            if (apiResponse != null && apiResponse.isSuccess()) {
-                                // El inicio de sesión fue exitoso
-                                String successMessage = apiResponse.getMessage();
-                                // Haz algo con el mensaje de éxito
+                            int statusCode = response.code();
+                            if (statusCode == 200) {
+                                // El código es 200, redirige a la TestActivity
+                                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                                startActivity(intent);
+                                finish();
                             } else {
-                                // El inicio de sesión falló
-                                String errorMessage = apiResponse != null ? apiResponse.getMessage() : "Error desconocido";
-
+                                int errorCode = response.code();
+                                // Imprimir el código de error en el registro
+                                Log.e("MainActivity", "Usuario/Contraseña Incorrectos: " + errorCode);
+                                // Mostrar el Snackbar con el mensaje de error
+                                //showSnackbar("Error en la solicitud, código: " + errorCode);
+                                showSnackbar("Usuario/Contraseña Incorrectos:");
+                                //Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                                //startActivity(intent);
+                                //finish();
                             }
                         } else {
-
                             int errorCode = response.code();
                             // Haz algo con el código de error
+                            showSnackbar("Error en la solicitud, código: " + errorCode);
                         }
                     }
-
                     @Override
                     public void onFailure(Call<ApiResponse> call, Throwable t) {
                         // Manejar el fallo de la solicitud aquí
+                        showSnackbar("Error en la conexión: " + t.getMessage());
                     }
                 });
             }
@@ -75,10 +83,14 @@ public class MainActivity extends AppCompatActivity {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Intent para abrir la actividad de registro
                 Intent intent = new Intent(MainActivity.this, RegistroActivity.class);
                 startActivity(intent);
             }
         });
+    }
+
+    // Método para mostrar un Snackbar
+    private void showSnackbar(String message) {
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
     }
 }

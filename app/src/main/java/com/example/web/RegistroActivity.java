@@ -1,5 +1,5 @@
 package com.example.web;
-
+import com.google.android.material.snackbar.Snackbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -60,17 +60,22 @@ public class RegistroActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish(); // Cierra la actividad actual
                         } else {
-                            // Manejar otros casos de respuesta (por ejemplo, mostrar un mensaje de error)
+                            int errorCode = response.code();
+                            // Haz algo con el código de error
+                            showSnackbar("Error en la solicitud, código: " + errorCode);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ApiResponse> call, Throwable t) {
-                        // Manejar el fallo de la solicitud aquí
+                        showSnackbar("Error en la conexión: " + t.getMessage());
                     }
                 });
             }
         });
+    }
+    private void showSnackbar(String message) {
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
     }
 
 }
