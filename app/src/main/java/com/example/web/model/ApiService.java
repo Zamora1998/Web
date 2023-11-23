@@ -12,10 +12,6 @@ public interface ApiService {
     @POST("UsuariosF/RegistrarUsuario")
     Call<ApiResponse> registrarUsuario(@Body Registrousuario registroUsuario);
 
-    @GET("PeliculasF/ObtenerDetalles")
-    Call<ApiResponse> obtenerDetalless();
 
-    @GET("PeliculasF/ObtenerDetalles")
-    Call<ApiResponse<List<Peliculatest>>> obtenerDetalles();
 }
 
