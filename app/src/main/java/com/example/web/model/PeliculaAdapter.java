@@ -1,5 +1,7 @@
 package com.example.web.model;
 
+import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +43,17 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
 
         // Configura los elementos de la vista
         holder.textViewNombre.setText(pelicula.getNombre());
-
+        holder.textViewNombre.setMovementMethod(LinkMovementMethod.getInstance());
+        holder.textViewNombre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Aquí puedes realizar la acción que desees al hacer clic
+                // En este ejemplo, se podría enviar el nombre de la película a una API
+                String nombrePelicula = pelicula.getNombre();
+                Log.d("PeliculaAdapter", "Nombre de la película: " + nombrePelicula);
+                //enviarNombreAPi(nombrePelicula);
+            }
+        });
         // Formatea la reseña y la fecha
         String reseñaFormateada = "Reseña: " + pelicula.getResena();
         String fechaOriginal = pelicula.getFechaLanzamiento();
@@ -88,4 +100,5 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
             return fechaOriginal; // Devuelve la fecha original si hay un error
         }
     }
+
 }
