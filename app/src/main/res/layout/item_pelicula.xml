@@ -1,3 +1,4 @@
+<!-- item_pelicula.xml -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -13,12 +14,32 @@
         android:importantForAccessibility="no" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_test_activity"
+        android:text="Nombre de la película"
         android:textSize="18sp"
         android:layout_below="@id/imageView"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/textViewResena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reseña de la película"
+        android:layout_below="@id/textViewNombre"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/textViewFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha de lanzamiento"
+        android:layout_below="@id/textViewResena"
+        android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true"
         android:gravity="center" />
 </RelativeLayout>
