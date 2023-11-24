@@ -17,7 +17,7 @@
     <string name="registrarse">Por favor complete todos los campos</string>
     <string name="registronuevo">Ingrese sus datos personales</string>
     <string name="boton_ir_a_login">Ir a Iniciar Sesión</string>
-    <string name="title_test_activity">Ingrese su Busqueda</string>
+    <string name="title_test_activity">Top Peliculas</string>
     <string name="busqueda">Test</string>
     <string name="buscar">Buscar</string>
     <string name="hello_test_activity">Hello, Test Activity!</string>

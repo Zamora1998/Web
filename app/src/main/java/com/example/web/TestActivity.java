@@ -14,6 +14,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import com.example.web.model.PeliculaAdapter;
 import java.util.List;
+import androidx.appcompat.widget.Toolbar;
+
 public class TestActivity extends AppCompatActivity {
 
     private static final String BASE_URL = "https://tiusr30pl.cuc-carrera-ti.ac.cr/APIV5/api/";
