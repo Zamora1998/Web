@@ -1,0 +1,4 @@
+<!-- difuminado_fondo.xml -->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/fondo"
+    android:alpha="0.9"/>
