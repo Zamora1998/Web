@@ -52,21 +52,14 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, TestActivity.class);
                                 startActivity(intent);
                                 finish();
-                            } else {
-                                int errorCode = response.code();
-                                // Imprimir el código de error en el registro
-                                Log.e("MainActivity", "Usuario/Contraseña Incorrectos: " + errorCode);
-                                // Mostrar el Snackbar con el mensaje de error
-                                //showSnackbar("Error en la solicitud, código: " + errorCode);
-                                showSnackbar("Usuario/Contraseña Incorrectos:");
-                                //Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                                //startActivity(intent);
-                                //finish();
+                            } else if (statusCode == 404) {
+                                // El código es 404, muestra el mensaje de usuario/contraseña incorrectos
+                                Log.e("MainActivity", "Usuario y/o Contraseña Incorrectos: " + statusCode);
                             }
                         } else {
                             int errorCode = response.code();
                             // Haz algo con el código de error
-                            showSnackbar("Error en la solicitud, código: " + errorCode);
+                            showSnackbar("Usuario/Contraseña Incorrectos");
                         }
                     }
                     @Override

@@ -10,13 +10,11 @@
         android:layout_height="match_parent"
         android:background="@drawable/fondo"
         tools:ignore="UselessParent">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/my_primary"
             android:alpha="0.4"/>
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
