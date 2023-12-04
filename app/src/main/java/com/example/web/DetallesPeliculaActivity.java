@@ -3,15 +3,27 @@ package com.example.web;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.web.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.web.model.ActorAdapter;
 import com.example.web.model.ApiService;
+import com.example.web.model.ComentarioAdapter;
 import com.example.web.model.DetallesPelicula;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -85,13 +97,64 @@ public class DetallesPeliculaActivity extends AppCompatActivity {
 
     private void mostrarDetallesPelicula(DetallesPelicula detallesPelicula) {
         try {
-            Log.d("DetallesPeliculaActivity", "Reseña: " + detallesPelicula.getResena());
-            Log.d("DetallesPeliculaActivity", "Calificación: " + detallesPelicula.getCalificacionGeneral());
-            Log.d("DetallesPeliculaActivity", "Fecha de Lanzamiento: " + detallesPelicula.getFechaLanzamiento());
+            ImageView imageViewPoster = findViewById(R.id.imageViewPoster);
+            TextView textViewNombrePelicula = findViewById(R.id.textViewNombrePelicula);
+            TextView textViewResena = findViewById(R.id.textViewResena);
+            TextView textViewCalificacion = findViewById(R.id.textViewCalificacion);
+            TextView textViewFechaLanzamiento = findViewById(R.id.textViewFechaLanzamiento);
+            RecyclerView recyclerViewActores = findViewById(R.id.recyclerViewActores);
+            RecyclerView recyclerViewComentarios = findViewById(R.id.recyclerViewComentarios);
+
+            // Cargar la imagen usando Glide
+            Glide.with(this)
+                    .load(detallesPelicula.getRutaPoster())
+                    .apply(RequestOptions.centerCropTransform())
+                    .into(imageViewPoster);
+
+            // Actualizar los TextView con los detalles de la película
+            textViewNombrePelicula.setText(detallesPelicula.getNombre());
+            textViewResena.setText("Reseña: " + detallesPelicula.getResena());
+            textViewCalificacion.setText("Calificación: " + detallesPelicula.getCalificacionGeneral());
+            textViewFechaLanzamiento.setText("Fecha de Lanzamiento: " + formatearFecha(detallesPelicula.getFechaLanzamiento()));
+
+            // Configurar el RecyclerView de actores
+            LinearLayoutManager layoutManagerActores = new LinearLayoutManager(this);
+            recyclerViewActores.setLayoutManager(layoutManagerActores);
+            recyclerViewActores.setHasFixedSize(true);
+
+            // Configurar el RecyclerView de comentarios
+            LinearLayoutManager layoutManagerComentarios = new LinearLayoutManager(this);
+            recyclerViewComentarios.setLayoutManager(layoutManagerComentarios);
+            recyclerViewComentarios.setHasFixedSize(true);
+
+            // Actualizar el RecyclerView de actores
+            ActorAdapter actorAdapter = new ActorAdapter(detallesPelicula.getActoresStaff());
+            recyclerViewActores.setAdapter(actorAdapter);
+
+            // Actualizar el RecyclerView de comentarios
+            ComentarioAdapter comentarioAdapter = new ComentarioAdapter(detallesPelicula.getComentarios());
+            recyclerViewComentarios.setAdapter(comentarioAdapter);
+
         } catch (Exception e) {
             // Imprimir el stack trace de la excepción
             Log.e("DetallesPeliculaActivity", "Error en la respuesta de la API MOSTRAR DETALLES", e);
         }
-    }
 
+    }
+    private String formatearFecha(String fechaOriginal) {
+        try {
+            // Formato de entrada
+            SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+
+            // Formato de salida
+            SimpleDateFormat formatoFormateado = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+            // Parsea la fecha original y la formatea
+            Date fecha = formatoOriginal.parse(fechaOriginal);
+            return formatoFormateado.format(fecha);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return fechaOriginal; // Devuelve la fecha original si hay un error
+        }
+    }
 }

@@ -103,7 +103,45 @@ class Comentario {
     @SerializedName("fechaComentario")
     private String fechaComentario;
 
-    // getters y setters
+    public int getComentarioID() {
+        return comentarioID;
+    }
+
+    public void setComentarioID(int comentarioID) {
+        this.comentarioID = comentarioID;
+    }
+
+    public String getPeliculaID() {
+        return peliculaID;
+    }
+
+    public void setPeliculaID(String peliculaID) {
+        this.peliculaID = peliculaID;
+    }
+
+    public String getUsuarioID() {
+        return usuarioID;
+    }
+
+    public void setUsuarioID(String usuarioID) {
+        this.usuarioID = usuarioID;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public String getFechaComentario() {
+        return fechaComentario;
+    }
+
+    public void setFechaComentario(String fechaComentario) {
+        this.fechaComentario = fechaComentario;
+    }
 }
 
 class ActorStaff {
@@ -113,6 +151,20 @@ class ActorStaff {
 
     @SerializedName("rol")
     private String rol;
+    public String getNombreActor() {
+        return nombreActor;
+    }
+    public void setNombreActor(String nombreActor) {
+        this.nombreActor = nombreActor;
+    }
 
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
 
 }
+
