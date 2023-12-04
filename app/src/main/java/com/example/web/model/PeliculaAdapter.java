@@ -1,5 +1,6 @@
 package com.example.web.model;
 
+import android.content.Intent;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.example.web.DetallesPeliculaActivity;
 import com.example.web.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,11 +49,10 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
         holder.textViewNombre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Aquí puedes realizar la acción que desees al hacer clic
-                // En este ejemplo, se podría enviar el nombre de la película a una API
-                String nombrePelicula = pelicula.getNombre();
-                Log.d("PeliculaAdapter", "Nombre de la película: " + nombrePelicula);
-                //enviarNombreAPi(nombrePelicula);
+                // Al hacer clic en el nombre de la película, inicia DetallesPeliculaActivity
+                Intent intent = new Intent(view.getContext(), DetallesPeliculaActivity.class);
+                intent.putExtra("nombrePelicula", pelicula.getNombre());
+                view.getContext().startActivity(intent);
             }
         });
         // Formatea la reseña y la fecha
