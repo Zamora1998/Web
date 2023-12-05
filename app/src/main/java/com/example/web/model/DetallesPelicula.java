@@ -12,7 +12,6 @@ public class DetallesPelicula {
     @SerializedName("resena")
     private String resena;
 
-    // Corrige el nombre del atributo aquí
     @SerializedName("calificacionGenerQal")
     private int calificacionGeneral;
 

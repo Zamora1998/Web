@@ -42,7 +42,6 @@ public class RegistroActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validarCampos()) {
-                    // Obtener los datos del usuario de tus EditText
                     String nombreUsuario = editTextNombreUsuario.getText().toString();
                     String nombre = editTextNombre.getText().toString();
                     String apellidos = editTextApellidos.getText().toString();
@@ -63,8 +62,7 @@ public class RegistroActivity extends AppCompatActivity {
                                 finish(); // Cierra la actividad actual
                             } else {
                                 int errorCode = response.code();
-                                // Haz algo con el código de error
-                                showSnackbar("Nombre de Usuario en uso : " + errorCode);
+                                showSnackbar("Nombre de Usuario en Uso por favor seleccione otro");
                             }
                         }
 
@@ -104,15 +102,11 @@ public class RegistroActivity extends AppCompatActivity {
             showSnackbar("Correo electrónico no válido");
             return false;
         }
-
-        // Puedes agregar más validaciones según tus necesidades
-
         return true;
     }
 
     private void showSnackbar(String message) {
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
     }
-
 
 }

@@ -1,5 +1,6 @@
 package com.example.web;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,18 +41,13 @@ public class DetallesPeliculaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalles_pelicula);
 
-        // Obtener el nombre de la película enviado desde ListaPeliculasActivity
         Intent intent = getIntent();
         if (intent.hasExtra("nombrePelicula")) {
             String nombrePelicula = intent.getStringExtra("nombrePelicula");
 
-            // Obtener el TextView del layout
             TextView textViewNombrePelicula = findViewById(R.id.textViewNombrePelicula);
-
-            // Mostrar el nombre de la película en el TextView
             textViewNombrePelicula.setText(nombrePelicula);
 
-            // Realizar la llamada a la API
             obtenerDetallesPelicula(nombrePelicula);
         }
     }
@@ -66,7 +62,6 @@ public class DetallesPeliculaActivity extends AppCompatActivity {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        // Utiliza la URL completa incluyendo el nombre de la película como parámetro de la Query
         String urlCompleta = "api/PeliculaDetalle/ObtenerDetallesPorNombre?nombrePelicula=" + nombrePelicula;
         Call<DetallesPelicula> call = apiService.obtenerDetallesPelicula(urlCompleta);
 
@@ -74,28 +69,24 @@ public class DetallesPeliculaActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DetallesPelicula> call, Response<DetallesPelicula> response) {
                 if (response.isSuccessful() || response.code() == 200) {
-                    // El código de respuesta es 200 (OK), mostrar detalles
                     DetallesPelicula detallesPelicula = response.body();
                     mostrarDetallesPelicula(detallesPelicula);
                     Log.d("DetallesPeliculaActivity", "Detalles de la película: " + detallesPelicula.getCalificacionGeneral());
                 } else if (response.code() == 404) {
-                    // El código de respuesta es 404 (Not Found), manejar el caso de película no encontrada
                     Log.d("DetallesPeliculaActivity", "Película no encontrada (404)");
-                    // Puedes mostrar un mensaje de error o realizar alguna otra acción
                 } else {
-                    // Otro código de respuesta, manejar según sea necesario
                     Log.e("DetallesPeliculaActivity", "Error en la respuesta de la API: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<DetallesPelicula> call, Throwable t) {
-                // Manejar el caso en el que la llamada a la API falla
                 Log.e("DetallesPeliculaActivity", "Error en la llamada a la API: " + t.getMessage(), t);
             }
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void mostrarDetallesPelicula(DetallesPelicula detallesPelicula) {
         try {
             ImageView imageViewPoster = findViewById(R.id.imageViewPoster);
@@ -116,46 +107,35 @@ public class DetallesPeliculaActivity extends AppCompatActivity {
             textViewCalificacion.setText("Calificación: " + detallesPelicula.getCalificacionGeneral());
             textViewFechaLanzamiento.setText("Fecha de Lanzamiento: " + formatearFecha(detallesPelicula.getFechaLanzamiento()));
 
-            // Configurar el RecyclerView de actores
             LinearLayoutManager layoutManagerActores = new LinearLayoutManager(this);
             recyclerViewActores.setLayoutManager(layoutManagerActores);
             recyclerViewActores.setHasFixedSize(true);
 
-            // Configurar el RecyclerView de comentarios
             LinearLayoutManager layoutManagerComentarios = new LinearLayoutManager(this);
             recyclerViewComentarios.setLayoutManager(layoutManagerComentarios);
             recyclerViewComentarios.setHasFixedSize(true);
 
-            // Actualizar el RecyclerView de actores
             ActorAdapter actorAdapter = new ActorAdapter(detallesPelicula.getActoresStaff());
             recyclerViewActores.setAdapter(actorAdapter);
 
-            // Actualizar el RecyclerView de comentarios
             ComentarioAdapter comentarioAdapter = new ComentarioAdapter(detallesPelicula.getComentarios());
             recyclerViewComentarios.setAdapter(comentarioAdapter);
-
-
         } catch (Exception e) {
-            // Imprimir el stack trace de la excepción
             Log.e("DetallesPeliculaActivity", "Error en la respuesta de la API MOSTRAR DETALLES", e);
 
         }
-
     }
     private String formatearFecha(String fechaOriginal) {
         try {
-            // Formato de entrada
             SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
-            // Formato de salida
             SimpleDateFormat formatoFormateado = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-            // Parsea la fecha original y la formatea
             Date fecha = formatoOriginal.parse(fechaOriginal);
             return formatoFormateado.format(fecha);
         } catch (ParseException e) {
             e.printStackTrace();
-            return fechaOriginal; // Devuelve la fecha original si hay un error
+            return fechaOriginal;
         }
     }
 }

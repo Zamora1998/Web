@@ -27,7 +27,6 @@ public class PeliculaModel {
     @SerializedName("posterID")
     private String posterID;
 
-    // Constructor, getters y setters según sea necesario
 
     public int getPeliculaID() {
         return peliculaID;

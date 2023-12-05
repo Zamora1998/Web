@@ -3,7 +3,7 @@ package com.example.web.model;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-public class ApiResponse {  // Agregué <T> para indicar que puede tener un parámetro de tipo
+public class ApiResponse {
 
     @SerializedName("success")
     private boolean success;

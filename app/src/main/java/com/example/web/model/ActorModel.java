@@ -9,8 +9,6 @@ public class ActorModel {
     @SerializedName("rol")
     private String rol;
 
-    // Constructor, getters y setters según sea necesario
-
     public String getNombreActor() {
         return nombreActor;
     }

@@ -78,8 +78,6 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
         TextView textViewNombre;
         TextView textViewResena;
         TextView textViewFecha;
-
-        // Cambiado a int para manejar la calificación como un entero
         TextView textViewCalificacion;
 
         public PeliculaViewHolder(@NonNull View itemView) {
@@ -96,18 +94,18 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
 
     private String formatearFecha(String fechaOriginal) {
         try {
-            // Formato de entrada
+
             SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
-            // Formato de salida
+
             SimpleDateFormat formatoFormateado = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-            // Parsea la fecha original y la formatea
+
             Date fecha = formatoOriginal.parse(fechaOriginal);
             return formatoFormateado.format(fecha);
         } catch (ParseException e) {
             e.printStackTrace();
-            return fechaOriginal; // Devuelve la fecha original si hay un error
+            return fechaOriginal;
         }
     }
 }

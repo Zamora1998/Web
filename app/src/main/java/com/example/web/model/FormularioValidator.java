@@ -12,12 +12,10 @@ public class FormularioValidator {
     }
 
     public static boolean validarApellidos(String apellidos) {
-        // Validar que los apellidos no estén vacíos y tengan una longitud mínima de 5 caracteres
         return !apellidos.isEmpty() && apellidos.length() >= 5;
     }
 
     public static boolean validarCorreoElectronico(String correoElectronico) {
-        // Utilizar la validación incorporada de Android para direcciones de correo electrónico
         return android.util.Patterns.EMAIL_ADDRESS.matcher(correoElectronico).matches();
     }
 }
