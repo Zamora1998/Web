@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                         } else if (statusCode == 409) {
                                 Log.e("MainActivity", "Usuario inactivo: " + statusCode);
-                                showSnackbar("Usuario inactivo");
+                                showSnackbar("Su usuario se encuentra inactivo, por favor comuníquese con el" +
+                                        "administrador\n");
                             }
                          else {
                             Log.e("MainActivity", "Usuario y/o Contraseña Incorrectos");

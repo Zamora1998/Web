@@ -74,6 +74,14 @@ public class RegistroActivity extends AppCompatActivity {
                 }
             }
         });
+        Button btnLogin = findViewById(R.id.btnIrALogin);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegistroActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private boolean validarCampos() {
@@ -102,6 +110,11 @@ public class RegistroActivity extends AppCompatActivity {
             showSnackbar("Correo electrónico no válido");
             return false;
         }
+        if (contrasena.isEmpty()) {
+            showSnackbar("La contraseña es requerida");
+            return false;
+        }
+
         return true;
     }
 
