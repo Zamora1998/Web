@@ -77,6 +77,7 @@ public class DetallesPeliculaActivity extends AppCompatActivity {
                     // El código de respuesta es 200 (OK), mostrar detalles
                     DetallesPelicula detallesPelicula = response.body();
                     mostrarDetallesPelicula(detallesPelicula);
+                    Log.d("DetallesPeliculaActivity", "Detalles de la película: " + detallesPelicula.getCalificacionGeneral());
                 } else if (response.code() == 404) {
                     // El código de respuesta es 404 (Not Found), manejar el caso de película no encontrada
                     Log.d("DetallesPeliculaActivity", "Película no encontrada (404)");
@@ -105,13 +106,11 @@ public class DetallesPeliculaActivity extends AppCompatActivity {
             RecyclerView recyclerViewActores = findViewById(R.id.recyclerViewActores);
             RecyclerView recyclerViewComentarios = findViewById(R.id.recyclerViewComentarios);
 
-            // Cargar la imagen usando Glide
             Glide.with(this)
                     .load(detallesPelicula.getRutaPoster())
                     .apply(RequestOptions.centerCropTransform())
                     .into(imageViewPoster);
 
-            // Actualizar los TextView con los detalles de la película
             textViewNombrePelicula.setText(detallesPelicula.getNombre());
             textViewResena.setText("Reseña: " + detallesPelicula.getResena());
             textViewCalificacion.setText("Calificación: " + detallesPelicula.getCalificacionGeneral());
@@ -135,9 +134,11 @@ public class DetallesPeliculaActivity extends AppCompatActivity {
             ComentarioAdapter comentarioAdapter = new ComentarioAdapter(detallesPelicula.getComentarios());
             recyclerViewComentarios.setAdapter(comentarioAdapter);
 
+
         } catch (Exception e) {
             // Imprimir el stack trace de la excepción
             Log.e("DetallesPeliculaActivity", "Error en la respuesta de la API MOSTRAR DETALLES", e);
+
         }
 
     }

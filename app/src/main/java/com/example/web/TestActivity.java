@@ -33,16 +33,13 @@ public class TestActivity extends AppCompatActivity {
         peliculaAdapter = new PeliculaAdapter();
         recyclerView.setAdapter(peliculaAdapter);
 
-        // Configuración de Retrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        // Creación de instancia del servicio
         PeliculaService peliculasService = retrofit.create(PeliculaService.class);
 
-        // Realizar la solicitud
         Call<List<PeliculaModel>> call = peliculasService.obtenerDetallesPeliculas();
         call.enqueue(new Callback<List<PeliculaModel>>() {
             @Override
@@ -54,15 +51,12 @@ public class TestActivity extends AppCompatActivity {
                         peliculaAdapter.notifyDataSetChanged();
                     }
                 } else {
-                    // Manejar la respuesta de error
                     Log.e("TestActivity", "Error en la respuesta: " + response.code());
                     Log.e("TestActivity", "Mensaje de error: " + response.message());
                 }
             }
-
             @Override
             public void onFailure(Call<List<PeliculaModel>> call, Throwable t) {
-                // Manejar el fallo en la solicitud
                 Log.e("TestActivity", "Error en la solicitud: " + t.getMessage());
             }
         });

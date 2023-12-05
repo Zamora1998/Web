@@ -43,4 +43,13 @@
         android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true"
         android:gravity="center" />
+    <TextView
+        android:id="@+id/textViewCalificacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calificacion"
+        android:layout_below="@id/textViewFecha"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
 </RelativeLayout>

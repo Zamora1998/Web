@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.web.DetallesPeliculaActivity;
 import com.example.web.R;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,6 +47,8 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
         // Configura los elementos de la vista
         holder.textViewNombre.setText(pelicula.getNombre());
         holder.textViewNombre.setMovementMethod(LinkMovementMethod.getInstance());
+        String calificacionFormateada = "Calificación: " + String.valueOf(pelicula.getCalificacionGenerQal());
+        holder.textViewCalificacion.setText(calificacionFormateada); // Ajustado para obtener la calificación general
         holder.textViewNombre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,8 +65,8 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
 
         holder.textViewResena.setText(reseñaFormateada);
         holder.textViewFecha.setText(fechaFormateada);
-    }
 
+    }
 
     @Override
     public int getItemCount() {
@@ -76,13 +79,19 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
         TextView textViewResena;
         TextView textViewFecha;
 
+        // Cambiado a int para manejar la calificación como un entero
+        TextView textViewCalificacion;
+
         public PeliculaViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             textViewNombre = itemView.findViewById(R.id.textViewNombre);
             textViewResena = itemView.findViewById(R.id.textViewResena);
             textViewFecha = itemView.findViewById(R.id.textViewFecha);
+            textViewCalificacion = itemView.findViewById(R.id.textViewCalificacion); // Corregido
+
         }
+
     }
 
     private String formatearFecha(String fechaOriginal) {
@@ -101,5 +110,4 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
             return fechaOriginal; // Devuelve la fecha original si hay un error
         }
     }
-
 }

@@ -12,8 +12,9 @@ public class DetallesPelicula {
     @SerializedName("resena")
     private String resena;
 
-    @SerializedName("calificacionGeneral")
-    private float calificacionGeneral;
+    // Corrige el nombre del atributo aquí
+    @SerializedName("calificacionGenerQal")
+    private int calificacionGeneral;
 
     @SerializedName("fechaLanzamiento")
     private String fechaLanzamiento;
@@ -45,11 +46,11 @@ public class DetallesPelicula {
         this.resena = resena;
     }
 
-    public float getCalificacionGeneral() {
+    public int getCalificacionGeneral() {
         return calificacionGeneral;
     }
 
-    public void setCalificacionGeneral(float calificacionGeneral) {
+    public void setCalificacionGeneral(int calificacionGeneral) {
         this.calificacionGeneral = calificacionGeneral;
     }
 
