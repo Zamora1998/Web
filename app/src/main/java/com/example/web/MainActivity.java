@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
                 String correo = editTextCorreo.getText().toString();
                 String password = editTextPassword.getText().toString();
 
+                if (correo.isEmpty() || password.isEmpty()) {
+                    // Muestra un mensaje de error si alguno de los campos está vacío
+                    showSnackbar("Por favor, completa todos los campos.");
+                    return;
+                }
+
                 Usuario user = new Usuario(correo, password);
 
                 Call<ApiResponse> call = apiService.validarlogin(user);
@@ -55,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                             } else if (statusCode == 404) {
                                 // El código es 404, muestra el mensaje de usuario/contraseña incorrectos
                                 Log.e("MainActivity", "Usuario y/o Contraseña Incorrectos: " + statusCode);
+                                showSnackbar("Usuario y/o Contraseña Incorrectos");
                             }
                         } else {
                             int errorCode = response.code();
@@ -62,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                             showSnackbar("Usuario/Contraseña Incorrectos");
                         }
                     }
+
                     @Override
                     public void onFailure(Call<ApiResponse> call, Throwable t) {
                         // Manejar el fallo de la solicitud aquí
